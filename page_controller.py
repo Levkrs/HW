@@ -8,6 +8,7 @@ def index_page(request):
     secret = request.get('secret', None)
     return '200 OK', render('index.html', secret=secret)
 
+
 def first_page(request):
     secret = request.get('secret', None)
     return '200 OK', render('first.html', secret=secret)
@@ -28,7 +29,6 @@ routes = {
     '/first/': first_page,
     '/second/': second_page,
 }
-
 
 
 def render(template_name, folder='templates', **kwargs):

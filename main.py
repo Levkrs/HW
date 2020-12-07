@@ -2,6 +2,8 @@ from page_controller import routes, page_404
 from front_controller import fronts
 from jinja2 import Template
 import os
+
+
 class Application():
 
     def __init__(self, route, fronts):
