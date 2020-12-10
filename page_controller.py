@@ -20,14 +20,20 @@ def second_page(request):
 
 
 def page_404(request):
-    print('PAGE_404')
-    return '404 WHAT', [b'404 PAGE Not Found']
+    # print('PAGE_404')
+    secret = request.get('secret', None)
+    return '404 WHAT', render('404.html', secret=secret)
+
+def contact(request):
+    return '200 OK', render('contact.html')
 
 
 routes = {
     '/': index_page,
     '/first/': first_page,
     '/second/': second_page,
+    '/contact/': contact,
+
 }
 
 
