@@ -47,7 +47,7 @@ class Application():
             params = data.split('&')
             print(params)
             for item in params:
-                if item !='':
+                if item != '':
                     k, v = item.split('=')
                     result[k] = v
         return result
@@ -78,6 +78,5 @@ def render(template_name, folder='templates', **kwargs):
 
 
 application = Application(routes, fronts)
-
 
 # uwsgi --http :8000 --wsgi-file simple_wsgi.py
