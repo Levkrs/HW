@@ -21,9 +21,9 @@ def second_page(request):
 
 
 def page_404(request):
-    # print('PAGE_404')
     secret = request.get('secret', None)
     return '404 WHAT', render('404.html', secret=secret)
+
 
 def contact(request):
     return '200 OK', render('_contact.html')
@@ -36,13 +36,3 @@ routes = {
     '/contact/': contact,
 
 }
-
-
-# def render(template_name, folder='templates', **kwargs):
-#     file_path = os.path.join(folder, template_name)
-#     # Открываем шаблон по имени
-#     with open(file_path, encoding='utf-8') as f:
-#         # Читаем
-#         template = Template(f.read())
-#     # рендерим шаблон с параметрами
-#     return template.render(**kwargs)
