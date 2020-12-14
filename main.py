@@ -67,16 +67,16 @@ class Application():
         return result
 
 
-def render(template_name, folder='templates', **kwargs):
-    file_path = os.path.join(folder, template_name)
-    # Открываем шаблон по имени
-    with open(file_path, encoding='utf-8') as f:
-        # Читаем
-        template = Template(f.read())
-    # рендерим шаблон с параметрами
-    return template.render(**kwargs)
+# def render(template_name, folder='templates', **kwargs):
+#     file_path = os.path.join(folder, template_name)
+#     # Открываем шаблон по имени
+#     with open(file_path, encoding='utf-8') as f:
+#         # Читаем
+#         template = Template(f.read())
+#     # рендерим шаблон с параметрами
+#     return template.render(**kwargs)
 
 
 application = Application(routes, fronts)
 
-# uwsgi --http :8000 --wsgi-file simple_wsgi.py
+# uwsgi --http :8000 --wsgi-file main.py

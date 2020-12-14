@@ -1,5 +1,6 @@
 import os
 from jinja2 import Template
+from render_func import render
 
 
 def index_page(request):
@@ -25,7 +26,7 @@ def page_404(request):
     return '404 WHAT', render('404.html', secret=secret)
 
 def contact(request):
-    return '200 OK', render('contact.html')
+    return '200 OK', render('_contact.html')
 
 
 routes = {
@@ -37,11 +38,11 @@ routes = {
 }
 
 
-def render(template_name, folder='templates', **kwargs):
-    file_path = os.path.join(folder, template_name)
-    # Открываем шаблон по имени
-    with open(file_path, encoding='utf-8') as f:
-        # Читаем
-        template = Template(f.read())
-    # рендерим шаблон с параметрами
-    return template.render(**kwargs)
+# def render(template_name, folder='templates', **kwargs):
+#     file_path = os.path.join(folder, template_name)
+#     # Открываем шаблон по имени
+#     with open(file_path, encoding='utf-8') as f:
+#         # Читаем
+#         template = Template(f.read())
+#     # рендерим шаблон с параметрами
+#     return template.render(**kwargs)
