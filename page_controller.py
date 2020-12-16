@@ -28,11 +28,48 @@ def page_404(request):
 def contact(request):
     return '200 OK', render('_contact.html')
 
+def category(request):
+    # print(f'DEF CATEGORY REQUEST {request.method}')
+    if request['method'] == 'GET':
+        return '200 OK', render('category.html')
+    elif request['method'] == 'POST':
+        pass
+
+def course_create(request):
+    if request['method'] == 'GET':
+        return '200 OK', render('course_create.html')
+    elif request['method'] == 'POST':
+        print('course_create')
+        print(request['applic'])
+        data = request['data']
+        print(data)
+        applic = request['applic']
+        applic.create_courses(data['title'])
+        print(applic.course)
+        return '200 OK', render('course_create.html', applic=applic.course)
+
+def category_create(request):
+    if request['method']== 'GET':
+        return '200 OK', render('category_create.html')
+    elif request['method'] == 'POST':
+        print('course_create')
+        print(request['applic'])
+        data = request['data']
+        print(data)
+        applic = request['applic']
+        #def create_category(self, cat_name, form, cours_name=None):
+        applic.create_category(cat_name=data['title'], form='online')
+        print(applic.category)
+        return '200 OK', render('category_create.html',applic=applic.category)
+
 
 routes = {
     '/': index_page,
     '/first/': first_page,
     '/second/': second_page,
     '/contact/': contact,
+    '/category/': category,
+    '/course_create/': course_create,
+    '/category_create/': category_create,
 
 }

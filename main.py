@@ -2,6 +2,8 @@ from page_controller import routes, page_404
 from front_controller import fronts
 from jinja2 import Template
 import os
+from models import MainClass
+
 
 
 class Application():
@@ -9,6 +11,7 @@ class Application():
     def __init__(self, route, fronts):
         self.routes = route
         self.fronts = fronts
+        self.mainclass = MainClass()
 
     def __call__(self, environ, start_resp):
         # print('WORK')
@@ -16,6 +19,7 @@ class Application():
         path = environ['PATH_INFO']
         request_method = environ['REQUEST_METHOD']
         if request_method == 'GET':
+            # print(self.mainclass.category)
             # print(path)
             # print(f'slef.routes : {self.routes}')
             view = page_404
@@ -27,18 +31,33 @@ class Application():
             request = {}
             for fronts in self.fronts:
                 fronts(request)
+            request['method'] = request_method
+            print(f'REQUEST - {request}')
             code, body = view(request)
+            # request['category'] = self.mainclass.category
+            # print(request)
             start_resp(code, [('Content-Type', 'text/html')])
             return [body.encode('utf-8')]
         elif request_method == 'POST':
             print('POST_METHOD')
-            # print(environ)
             data = self.get_wsgi_input_data(environ)
-            # print(data)
             data = self.parse_wsgi_input_data(data)
             print(data)
-            start_resp('200', [('Content-Type', 'text/html')])
-            return [b' OK']
+            if path in self.routes:
+                # print('if path')
+                view = self.routes[path]
+                # view = '200 OK', render('index.html', object_list=[{'name': 'Leo'}, {'name': 'Kate'}])
+                # print(view)
+            request = {}
+            for fronts in self.fronts:
+                fronts(request)
+            request['method'] = request_method
+            request['applic'] = self.mainclass
+            request['data'] = data
+            print(f'REQUEST - {request}')
+            code, body = view(request)
+            start_resp(code, [('Content-Type', 'text/html')])
+            return [body.encode('utf-8')]
 
     def parse_input_data(self, data: str):
         result = {}
@@ -67,14 +86,6 @@ class Application():
         return result
 
 
-# def render(template_name, folder='templates', **kwargs):
-#     file_path = os.path.join(folder, template_name)
-#     # Открываем шаблон по имени
-#     with open(file_path, encoding='utf-8') as f:
-#         # Читаем
-#         template = Template(f.read())
-#     # рендерим шаблон с параметрами
-#     return template.render(**kwargs)
 
 
 application = Application(routes, fronts)
