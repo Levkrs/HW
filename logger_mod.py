@@ -27,9 +27,10 @@ class Traceback():
     def __init__(self, msg):
         self.msg = msg
 
-    def log_(self,text):
+    def log_(self, text):
         print(f'---------{text}')
         print(f'TRACEBACK - {traceback.format_stack()}')
+
 
 if __name__ == '__main__':
     x = Logger('test')
