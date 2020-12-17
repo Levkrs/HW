@@ -1,11 +1,15 @@
 import os
 from jinja2 import Template
 from render_func import render
+from logger_mod import Logger
+
+logger = Logger(__name__)
 
 
 def index_page(request):
     # print('INDEX_PAGE')
     # return '200 OK', [b'INDEX PAGE LOAD']
+    logger.log('index page request')
     secret = request.get('secret', None)
     return '200 OK', render('index.html', secret=secret)
 

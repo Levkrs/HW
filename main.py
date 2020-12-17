@@ -3,8 +3,9 @@ from front_controller import fronts
 from jinja2 import Template
 import os
 from models import MainClass
+from logger_mod  import Logger
 
-
+logger = Logger(__name__)
 
 class Application():
 
@@ -19,6 +20,7 @@ class Application():
         path = environ['PATH_INFO']
         request_method = environ['REQUEST_METHOD']
         if request_method == 'GET':
+            logger.log('Get request')
             # print(self.mainclass.category)
             # print(path)
             # print(f'slef.routes : {self.routes}')
@@ -32,17 +34,19 @@ class Application():
             for fronts in self.fronts:
                 fronts(request)
             request['method'] = request_method
-            print(f'REQUEST - {request}')
+            # print(f'REQUEST - {request}')
             code, body = view(request)
             # request['category'] = self.mainclass.category
             # print(request)
             start_resp(code, [('Content-Type', 'text/html')])
             return [body.encode('utf-8')]
+
         elif request_method == 'POST':
-            print('POST_METHOD')
+            logger.log('POST request')
+            # print('POST_METHOD')
             data = self.get_wsgi_input_data(environ)
             data = self.parse_wsgi_input_data(data)
-            print(data)
+            # print(data)
             if path in self.routes:
                 # print('if path')
                 view = self.routes[path]
@@ -54,7 +58,7 @@ class Application():
             request['method'] = request_method
             request['applic'] = self.mainclass
             request['data'] = data
-            print(f'REQUEST - {request}')
+            # print(f'REQUEST - {request}')
             code, body = view(request)
             start_resp(code, [('Content-Type', 'text/html')])
             return [body.encode('utf-8')]
@@ -70,7 +74,6 @@ class Application():
                     k, v = item.split('=')
                     result[k] = v
         return result
-
     def get_wsgi_input_data(self, environ):
         content_length_data = environ.get('CONTENT_LENGTH')
         content_length = int(content_length_data) if content_length_data else 0
@@ -84,6 +87,7 @@ class Application():
             print('DATA STRING ', data_str)
             result = self.parse_input_data(data_str)
         return result
+
 
 
 

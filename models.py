@@ -1,5 +1,9 @@
 import abc
 
+from logger_mod import Logger
+
+logger = Logger(__name__)
+
 
 class Courses:
     def __init__(self, name):
@@ -27,18 +31,20 @@ class MainClass:
             param.append(cours)
         else:
             self.course[cours.name] = [cours]
+        logger.log('CREATE COURSES')
 
     def create_category(self, cat_name, form, cours_name=None):
         # if self.course.get(cours_name):
-            cours = cours_name
-            cat = Category(cat_name, form, cours)
-            self.category.append(cat)
+        cours = cours_name
+        cat = Category(cat_name, form, cours)
+        self.category.append(cat)
+
+        logger.log('CREATE CATEGORY')
         # else:
         #     print('Error - Нет такого курса')
 
     def get_categorys(self):
         return self.category
-
 
 
 if __name__ == '__main__':
