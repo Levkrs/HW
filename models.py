@@ -56,6 +56,3 @@ if __name__ == '__main__':
     maincls.create_category('Прямая', 'online', 'Snowboard')
     print(maincls.course)
     print(maincls.category)
-    # for i in maincls.category:
-    #     print(i.name)
-    # print('---')

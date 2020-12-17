@@ -7,8 +7,6 @@ logger = Logger(__name__)
 
 
 def index_page(request):
-    # print('INDEX_PAGE')
-    # return '200 OK', [b'INDEX PAGE LOAD']
     logger.log('index page request')
     secret = request.get('secret', None)
     return '200 OK', render('index.html', secret=secret)
@@ -33,7 +31,6 @@ def contact(request):
     return '200 OK', render('_contact.html')
 
 def category(request):
-    # print(f'DEF CATEGORY REQUEST {request.method}')
     if request['method'] == 'GET':
         return '200 OK', render('category.html')
     elif request['method'] == 'POST':
@@ -61,7 +58,6 @@ def category_create(request):
         data = request['data']
         print(data)
         applic = request['applic']
-        #def create_category(self, cat_name, form, cours_name=None):
         applic.create_category(cat_name=data['title'], form='online')
         print(applic.category)
         return '200 OK', render('category_create.html',applic=applic.category)
