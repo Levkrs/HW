@@ -3,7 +3,7 @@ from jinja2 import Template
 from render_func import render
 from logger_mod import Logger
 
-logger = Logger(__name__)
+logger = Logger('page_controller')
 
 
 def index_page(request):

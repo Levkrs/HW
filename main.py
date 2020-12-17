@@ -3,9 +3,10 @@ from front_controller import fronts
 from jinja2 import Template
 import os
 from models import MainClass
-from logger_mod  import Logger
+from logger_mod  import Logger, Traceback
 
-logger = Logger(__name__)
+logger = Logger('main')
+trace = Traceback('MSG')
 
 class Application():
 
@@ -32,6 +33,7 @@ class Application():
 
         elif request_method == 'POST':
             logger.log('POST request')
+            trace.log_('msg for Traceback')
             print('POST_METHOD')
             data = self.get_wsgi_input_data(environ)
             data = self.parse_wsgi_input_data(data)

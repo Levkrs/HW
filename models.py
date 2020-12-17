@@ -2,7 +2,7 @@ import abc
 
 from logger_mod import Logger
 
-logger = Logger(__name__)
+logger = Logger('models')
 
 
 class Courses:
