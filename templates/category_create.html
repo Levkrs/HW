@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}
+Course create
+{% endblock %}
+{% block body %}
+<h1>Category create</h1>
+<h2> Список созданных категорий
+</h2>
+<ul>
+
+    {% if applic %}
+    {% for item in applic %}
+    <li>{{item.name}}</li>
+    {% endfor %}
+    {% else %}
+    <p> Нет созданных категорий </p>
+    {% endif %}
+
+</ul>
+<form method="post">
+    <input type="text" name="title" placeholder="Название категории">
+    <input type="text" name="type_cat" placeholder="Тип категории">
+    <input type="text" name="courses_cat" placeholder="Курс категории">
+    <button type="submit">Создать</button>
+</form>
+{% endblock %}
+
+{% block menu%}
+
+
+{% endblock %}

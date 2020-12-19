@@ -1,22 +1,34 @@
-from jinja2 import Template
+import time
+
+def debug(func):
+    def inner(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print('DEBUG-------->', func.__name__, end - start)
+        return result
+
+    return inner
 
 
-def render(template_name, **kwargs):
-    """
-    Минимальный пример работы с шаблонизатором
-    :param template_name: имя шаблона
-    :param kwargs: параметры для передачи в шаблон
-    :return:
-    """
-    # Открываем шаблон по имени
-    with open(template_name, encoding='utf-8') as f:
-        # Читаем
-        template = Template(f.read())
-    # рендерим шаблон с параметрами
-    return template.render(**kwargs)
+def first_func(func):
 
+    def rty(*args, **kwargs):
+        print(f'decor_func res')
+        if kwargs['test'] == 5:
+            return 'stop'
+        res = func(*args, **kwargs)
+        print(res)
+        # return res
+
+    return rty
+
+# @debug
+@first_func
+def my_func(x, test=None):
+    x = x+1
+    print(f'my_func {x}')
+    return x
 
 if __name__ == '__main__':
-    # Пример использования
-    output_test = render('index.html', object_list=[{'name': 'Leo'}, {'name': 'Kate'}])
-    print(output_test)
+    my_func(3, test=5)

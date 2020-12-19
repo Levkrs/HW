@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}
+Course create
+{% endblock %}
+{% block body %}
+<h1>Course create</h1>
+<h2> Список созданных курсов
+</h2>
+<ul>
+    {% if applic %}
+    {% for key, value in applic.items() %}
+    <li>{{ key }}</li>
+    {% endfor %}
+    {% else %}
+    <p> Нет созданных курсов </p>
+    {% endif %}
+
+</ul>
+<form method="post">
+    <input type="text" name="title" placeholder="Название курса">
+    <button type="submit">Создать</button>
+</form>
+{% endblock %}
+
+{% block menu%}
+
+
+{% endblock %}
